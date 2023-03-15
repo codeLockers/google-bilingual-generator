@@ -1,0 +1,9 @@
+
+
+msgid ""
+msgstr ""
+"Language: zh_Hans\n"
+"Content-Type: text/plain; charset=utf-8\n"
+
+msgid "msgid"
+msgstr ""

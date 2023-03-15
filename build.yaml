@@ -1,0 +1,8 @@
+builders:
+  google_bilingual_generator:
+    import: 'package:google_bilingual_generator/src/google_bilingual_builder.dart'  #build文件
+    builder_factories: ['googleBilingual']
+    build_extensions: {'.dart': ['.po']}
+    auto_apply: dependents
+    build_to: source
+    applies_builders: ["source_gen|combining_builder"]
