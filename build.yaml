@@ -1,7 +1,7 @@
 builders:
-  googleable:
-    import: 'package:googleable/src/googleable_builder.dart'  #build文件
-    builder_factories: ['googleable']
+  google_bilingual_generator:
+    import: 'package:google_bilingual_generator/src/google_bilingual_builder.dart'  #build文件
+    builder_factories: ['googleBilingual']
     build_extensions: {'.dart': ['.po']}
     auto_apply: dependents
     build_to: source

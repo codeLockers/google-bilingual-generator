@@ -3,7 +3,7 @@ import 'package:build/build.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:google_bilingual_annotations/google_bilingual_annotations.dart';
 import 'package:google_bilingual_generator/src/google_apis.dart';
-import 'package:google_bilingual_generator/src/googleable_visitor.dart';
+import 'package:google_bilingual_generator/src/google_bilingual_visitor.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:path/path.dart' as p;
