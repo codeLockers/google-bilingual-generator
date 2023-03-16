@@ -29,8 +29,9 @@ class GoogleBilingualGenerator extends GeneratorForAnnotation<GoogleBilingual> {
   generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) async {
     ConstantReader paths = annotation.read('paths');
+    ConstantReader locale = annotation.read('locale');
     ConstantReader credential = annotation.read('credential');
-    if (!paths.isList || !credential.isMap) {
+    if (!paths.isList || !credential.isMap || !locale.isString) {
       return null;
     }
     _googleSheet = GoogleSheet(GoogleCredential.fromJson(credential.mapValue
@@ -46,7 +47,7 @@ class GoogleBilingualGenerator extends GeneratorForAnnotation<GoogleBilingual> {
     StringBuffer potBuffer = StringBuffer();
     potBuffer.writeln('msgid ""');
     potBuffer.writeln('msgstr ""');
-    potBuffer.writeln('"Language: ${element.displayName}\\n"');
+    potBuffer.writeln('"Language: ${locale.stringValue}\\n"');
     potBuffer.writeln('"Content-Type: text/plain; charset=utf-8\\n"');
     potBuffer.writeln('');
 
@@ -56,11 +57,11 @@ class GoogleBilingualGenerator extends GeneratorForAnnotation<GoogleBilingual> {
         continue;
       }
       if (local.msgctxt.isNotEmpty) {
-        potBuffer.writeln('msgctxt ${local.msgctxt}');
+        potBuffer.writeln('msgctxt "${local.msgctxt}"');
       }
-      potBuffer.writeln('msgid ${local.msgid}');
+      potBuffer.writeln('msgid "${local.msgid}"');
       potBuffer.writeln(
-          'msgstr "${_getValue(local, element.displayName)}"'); //set value
+          'msgstr "${_getValue(local, locale.stringValue)}"'); //set value
       potBuffer.writeln('');
     }
 
@@ -125,8 +126,8 @@ extension GoogleableGeneratorExtension on GoogleBilingualGenerator {
 
   TranslationItem? _findTranslationFromRemote(TranslationItem matchLocal) {
     return _remoteTranslations.firstWhereOrNull((remote) {
-      return remote.formatMsgid() == matchLocal.msgid &&
-          remote.formatMsgctxt() == matchLocal.msgctxt;
+      return remote.msgid == matchLocal.msgid &&
+          remote.msgctxt == matchLocal.msgctxt;
     });
   }
 
@@ -134,9 +135,11 @@ extension GoogleableGeneratorExtension on GoogleBilingualGenerator {
     //find new copies
     List<TranslationItem> appendItems = [];
     for (var local in _localTranslations) {
+      if (local.msgid.isEmpty) {
+        continue;
+      }
       TranslationItem? item = _remoteTranslations.firstWhereOrNull((remote) {
-        return remote.formatMsgid() == local.msgid &&
-            remote.formatMsgctxt() == local.msgctxt;
+        return remote.msgid == local.msgid && remote.msgctxt == local.msgctxt;
       });
 
       if (item == null) {
@@ -157,8 +160,8 @@ extension GoogleableGeneratorExtension on GoogleBilingualGenerator {
         continue;
       }
       TranslationItem? item = _localTranslations.firstWhereOrNull((local) {
-        return remote.value.formatMsgid() == local.msgid &&
-            remote.value.formatMsgctxt() == local.msgctxt;
+        return remote.value.msgid == local.msgid &&
+            remote.value.msgctxt == local.msgctxt;
       });
       if (item == null) {
         unusedIndex.add(remote.key);
@@ -169,9 +172,9 @@ extension GoogleableGeneratorExtension on GoogleBilingualGenerator {
 
   String _getValue(TranslationItem local, String language) {
     TranslationItem? remote = _findTranslationFromRemote(local);
-    if (language.startsWith('zh')) {
+    if (language.toLowerCase().startsWith('zh')) {
       return remote?.zh ?? '';
-    } else if (language.startsWith('en')) {
+    } else if (language.toLowerCase().startsWith('en')) {
       return remote?.en ?? '';
     } else {
       return '';

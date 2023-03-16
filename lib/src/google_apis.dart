@@ -1,4 +1,3 @@
-import 'package:google_bilingual_annotations/google_bilingual_annotations.dart';
 import 'package:googleapis/sheets/v4.dart';
 import "package:googleapis_auth/auth_io.dart";
 
@@ -9,9 +8,38 @@ class TranslationItem {
   final String en;
 
   TranslationItem(this.msgid, this.msgctxt, this.zh, this.en);
+}
 
-  String formatMsgid() => msgid.isEmpty ? '' : '"$msgid"';
-  String formatMsgctxt() => msgctxt.isEmpty ? '' : '"$msgctxt"';
+// ignore_for_file: non_constant_identifier_names
+class GoogleCredential {
+  final String private_key_id;
+  final String private_key;
+  final String client_email;
+  final String client_id;
+  final String type;
+  final String file_id;
+  final String sheet_name;
+  final String sheet_id;
+
+  const GoogleCredential(
+      this.private_key_id,
+      this.private_key,
+      this.client_email,
+      this.client_id,
+      this.type,
+      this.file_id,
+      this.sheet_name,
+      this.sheet_id);
+
+  GoogleCredential.fromJson(Map<String?, String?> json)
+      : private_key_id = json['private_key_id'] ?? '',
+        private_key = json['private_key'] ?? '',
+        client_email = json['client_email'] ?? '',
+        client_id = json['client_id'] ?? '',
+        type = json['type'] ?? '',
+        file_id = json['file_id'] ?? '',
+        sheet_name = json['sheet_name'] ?? '',
+        sheet_id = json['sheet_id'] ?? '';
 }
 
 class GoogleSheet {
@@ -60,13 +88,7 @@ class GoogleSheet {
       return SheetsApi(value).spreadsheets.values.append(
           ValueRange(
               values: items.map((e) {
-            String msgid = e.msgid.isNotEmpty
-                ? e.msgid.substring(1, e.msgid.length - 1)
-                : e.msgid;
-            String msgctxt = e.msgctxt.isNotEmpty
-                ? e.msgctxt.substring(1, e.msgctxt.length - 1)
-                : e.msgctxt;
-            return [msgid, msgctxt, '', ''];
+            return [e.msgid, e.msgctxt, '', ''];
           }).toList()),
           credential.file_id,
           credential.sheet_name,

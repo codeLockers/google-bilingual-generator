@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:google_bilingual_annotations/google_bilingual_annotations.dart';
 
 // ignore_for_file: constant_identifier_names
@@ -14,5 +15,5 @@ const Map<String, String> GOOGLE_SHEET_CREDENTIAL = {
   'sheet_id': '1543276873'
 };
 
-@GoogleBilingual(['./lib'], GOOGLE_SHEET_CREDENTIAL)
-class en_US {}
+@GoogleBilingual(['./lib'], 'en_US', GOOGLE_SHEET_CREDENTIAL)
+const Locale en = Locale('en', 'US');

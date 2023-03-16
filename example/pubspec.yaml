@@ -39,11 +39,11 @@ dependencies:
   google_bilingual_annotations:
     git:
       url: https://github.com/codeLockers/google-bilingual-annotations.git
-      ref: v0.0.2
+      ref: v0.0.5
   google_bilingual_gettext:
     git:
       url: https://github.com/codeLockers/google-bilingual-gettext.git
-      ref: v0.0.1
+      ref: v0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +71,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - lib/bilingual/en_us.po
+    - lib/bilingual/zh_hans.po
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
