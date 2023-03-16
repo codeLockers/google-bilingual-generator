@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale("zh", "Hans"),
       supportedLocales: const [Locale("zh", "Hans"), Locale("en", "US")],
       localizationsDelegates: [
-        GettextLocalizationsDelegate(defaultLanguage: "en"),
+        GettextLocalizationsDelegate('lib/bilingual'),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
@@ -68,7 +68,14 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      context.t("msgid");
+      // String string = context.t('msgid');
+      // String string1 = context.t("coker");
+      // String string2 = context.t("");
+      String string3 = context.t("string3", msgctxt: 'string3 c');
+      // String string4 = context.t('string4', msgctxt: "string4 c");
+      String string5 = context.t('string5 {0} and {1} ', args: ['name', 10]);
+      print("🐟🐟 string3 = $string3");
+      print("🐟🐟 string5 = $string5");
     });
   }
 

@@ -5,5 +5,9 @@ msgstr ""
 "Language: zh_Hans\n"
 "Content-Type: text/plain; charset=utf-8\n"
 
-msgid "msgid"
-msgstr ""
+msgctxt "string3 c"
+msgid "string3"
+msgstr "三"
+
+msgid "string5 {0} and {1} "
+msgstr "五 {0}, {1}"

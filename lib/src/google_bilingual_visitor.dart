@@ -32,8 +32,12 @@ class GoogleBilingualItemVisitor extends GeneralizingAstVisitor {
     if (_previousNode?.beginToken.toString() == '(' &&
         _previousNode?.endToken.toString() == ')' &&
         node.beginToken.toString() == node.endToken.toString()) {
-      //key node
-      item.msgid = node.beginToken.toString();
+      //msgid node
+      String msgidNode = node.beginToken.toString();
+      String msgid = msgidNode.isNotEmpty
+          ? msgidNode.substring(1, msgidNode.length - 1)
+          : '';
+      item.msgid = msgid;
     }
     if (_previousNode?.beginToken.toString() == 'msgctxt' &&
         _previousNode?.endToken.toString() == 'msgctxt' &&
@@ -41,7 +45,11 @@ class GoogleBilingualItemVisitor extends GeneralizingAstVisitor {
         _previousNode?.childEntities.first.toString() == 'msgctxt' &&
         node.beginToken.toString() == node.endToken.toString()) {
       //msgctxt node
-      item.msgctxt = node.beginToken.toString();
+      String msgctxtNode = node.beginToken.toString();
+      String msgctxt = msgctxtNode.isNotEmpty
+          ? msgctxtNode.substring(1, msgctxtNode.length - 1)
+          : '';
+      item.msgctxt = msgctxt;
     }
     _previousNode = node;
     return super.visitNode(node);

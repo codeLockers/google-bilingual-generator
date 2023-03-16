@@ -5,5 +5,9 @@ msgstr ""
 "Language: en_US\n"
 "Content-Type: text/plain; charset=utf-8\n"
 
-msgid "msgid"
-msgstr ""
+msgctxt "string3 c"
+msgid "string3"
+msgstr "three"
+
+msgid "string5 {0} and {1} "
+msgstr "five  {0}, {1}"
