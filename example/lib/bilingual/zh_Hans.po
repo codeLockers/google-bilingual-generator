@@ -7,7 +7,7 @@ msgstr ""
 
 msgctxt "string3 c"
 msgid "string3"
-msgstr "三"
+msgstr ""
 
 msgid "string5 {0} and {1} "
-msgstr "五 {0}, {1}"
+msgstr ""

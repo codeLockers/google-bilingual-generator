@@ -39,7 +39,7 @@ dependencies:
   google_bilingual_annotations:
     git:
       url: https://github.com/codeLockers/google-bilingual-annotations.git
-      ref: v0.0.5
+      ref: v0.0.6
   google_bilingual_gettext:
     git:
       url: https://github.com/codeLockers/google-bilingual-gettext.git
