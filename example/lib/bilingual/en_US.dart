@@ -10,10 +10,10 @@ const Map<String, String> GOOGLE_SHEET_CREDENTIAL = {
   'client_email': 'coker-busy@busy-375613.iam.gserviceaccount.com',
   'client_id': '112920092832319622567',
   'type': 'service_account',
-  'file_id': '1KrZdbOB-oieIKSMQj28dPwiP1RcuhW3-ZnrrGevGhpE',
-  'sheet_name': 'Sheet2',
-  'sheet_id': '1543276873'
+  'file_id': '1niH-_Nf6DTiv_l4WScD9raRbsLavtp-SQll_fsCSKcQ',
+  'sheet_name': 'Sheet1',
+  'sheet_id': '0'
 };
 
-@GoogleBilingual(['./lib'], 'en_US', GOOGLE_SHEET_CREDENTIAL)
+@GoogleBilingual(['./lib'], 'en_US', GOOGLE_SHEET_CREDENTIAL, true)
 const Locale en = Locale('en', 'US');

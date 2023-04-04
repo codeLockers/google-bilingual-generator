@@ -31,7 +31,11 @@ class GoogleBilingualGenerator extends GeneratorForAnnotation<GoogleBilingual> {
     ConstantReader paths = annotation.read('paths');
     ConstantReader locale = annotation.read('locale');
     ConstantReader credential = annotation.read('credential');
-    if (!paths.isList || !credential.isMap || !locale.isString) {
+    ConstantReader removeUseless = annotation.read('removeUseless');
+    if (!paths.isList ||
+        !credential.isMap ||
+        !locale.isString ||
+        !removeUseless.isBool) {
       return null;
     }
     _googleSheet = GoogleSheet(GoogleCredential.fromJson(credential.mapValue
@@ -72,7 +76,7 @@ class GoogleBilingualGenerator extends GeneratorForAnnotation<GoogleBilingual> {
       await _googleSheet.append(appendItems);
     }
 
-    if (!hasDeleted) {
+    if (!hasDeleted && removeUseless.boolValue) {
       hasDeleted = true;
       List<int> unuseRows = await _findUnusedTranslations();
       await _googleSheet.delete(unuseRows);
